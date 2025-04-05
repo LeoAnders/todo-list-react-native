@@ -7,7 +7,8 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  FlatList
+  FlatList,
+  Alert,
 } from 'react-native';
 import Task from "@/src/components/Task";
 
@@ -21,15 +22,29 @@ export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState('');
 
+  const newTaskObject = {
+    id: String(Math.random()),
+    title: newTask,
+    done: false,
+  };
+
   function handleAddTask() {
-    const newTaskObject = {
-      id: String(Math.random()),
-      title: newTask,
-      done: false,
-    };
 
     setTasks(prevState => [...prevState, newTaskObject])
     setNewTask('');
+  }
+
+  function handleTaskRemove(id: string) {
+    Alert.alert("Remover", "Deseja remover a tarefa", [
+      {
+        text: 'Sim',
+        onPress: () => setTasks(prevState => prevState.filter((task: Task) => task.id !== id))
+      },
+      {
+        text: 'Não',
+        style: 'cancel'
+      }
+    ])
   }
 
   return (
@@ -44,7 +59,7 @@ export function Home() {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Adicione uma nova tarefa"
+          placeholder="Adicione uma nova tarefa?"
           placeholderTextColor="#808080"
           value={newTask}
           onChangeText={setNewTask}
@@ -69,7 +84,7 @@ export function Home() {
             title={item.title}
             done={false}
             onToggleDone={() => { }}
-            onRemove={() => { }}
+            onRemove={() => handleTaskRemove(item.id)}
           />
         )}
         showsVerticalScrollIndicator={false}
