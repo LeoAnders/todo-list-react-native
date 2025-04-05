@@ -12,12 +12,26 @@ import {
 import Task from "@/src/components/Task";
 
 export function Home() {
+  type Task = {
+    id: string;
+    title: string;
+    done: boolean;
+  };
 
-  const tasks = [
-    { id: '1', text: 'Estudar React Native', completed: false },
-    { id: '2', text: 'Estudar React', completed: true },
-    { id: '3', text: 'Estudar Node.js', completed: false },
-  ];
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [newTask, setNewTask] = useState('');
+
+  function handleAddTask() {
+    const newTaskObject = {
+      id: String(Math.random()),
+      title: newTask,
+      done: false,
+    };
+
+    setTasks(prevState => [...prevState, newTaskObject])
+    setNewTask('');
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -32,8 +46,10 @@ export function Home() {
           style={styles.input}
           placeholder="Adicione uma nova tarefa"
           placeholderTextColor="#808080"
+          value={newTask}
+          onChangeText={setNewTask}
         />
-        <TouchableOpacity style={styles.addButton}>
+        <TouchableOpacity style={styles.addButton} onPress={handleAddTask}>
           <Text style={styles.addButtonText}>＋</Text>
         </TouchableOpacity>
       </View>
@@ -50,8 +66,8 @@ export function Home() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <Task
-            title={item.text}
-            done={item.completed}
+            title={item.title}
+            done={false}
             onToggleDone={() => { }}
             onRemove={() => { }}
           />
