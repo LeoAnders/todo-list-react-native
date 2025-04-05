@@ -1,14 +1,14 @@
-# ToDo List - React Native
+## ToDo List - React Native
 
 A simple to-do list app built with React Native. This project is part of the Ignite React Native track and helps reinforce core concepts like state management, componentization, and immutability.
 
-## Features
+### Features
 - Add a new task
 - Mark and unmark tasks as completed
 - Remove a task from the list
 - Display progress of completed tasks
 
-## Get started
+### Get started
 
 1. Install dependencies
 
