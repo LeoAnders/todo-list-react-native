@@ -6,10 +6,18 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Image
+  Image,
+  FlatList
 } from 'react-native';
+import Task from "@/src/components/Task";
 
 export function Home() {
+
+  const tasks = [
+    { id: '1', text: 'Estudar React Native', completed: false },
+    { id: '2', text: 'Estudar React', completed: true },
+    { id: '3', text: 'Estudar Node.js', completed: false },
+  ];
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -37,14 +45,29 @@ export function Home() {
 
       <View style={styles.divider} />
 
-      <View style={styles.emptyList}>
-        <Image
-          source={require('../../assets/clipboard.png')}
-          style={styles.clipboard}
-        />
-        <Text style={styles.emptyTextBold}>Você ainda não tem tarefas cadastradas</Text>
-        <Text style={styles.emptyText}>Crie tarefas e organize seus itens a fazer</Text>
-      </View>
+      <FlatList
+        data={tasks}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Task
+            title={item.text}
+            done={item.completed}
+            onToggleDone={() => { }}
+            onRemove={() => { }}
+          />
+        )}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={() => (
+          <View style={styles.emptyList}>
+            <Image
+              source={require('../../assets/clipboard.png')}
+              style={styles.clipboard}
+            />
+            <Text style={styles.emptyTextBold}>Você ainda não tem tarefas cadastradas</Text>
+            <Text style={styles.emptyText}>Crie tarefas e organize seus itens a fazer</Text>
+          </View>
+        )}
+      />
     </View>
   );
 }
