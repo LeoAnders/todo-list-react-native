@@ -16,6 +16,7 @@ interface Props {
 }
 
 export default function Task({ title, done, onToggleDone, onRemove }: Props) {
+
   return (
     <View style={[styles.container, done && styles.containerDone]}>
       <TouchableOpacity onPress={onToggleDone} style={styles.checkbox}>

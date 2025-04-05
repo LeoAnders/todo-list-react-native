@@ -47,6 +47,16 @@ export function Home() {
     ])
   }
 
+  function handleToggleTaskDone(id: string) {
+    setTasks(prevState =>
+      prevState.map(task =>
+        task.id === id
+          ? { ...task, done: !task.done }
+          : task
+      )
+    );
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -73,7 +83,6 @@ export function Home() {
         <Text style={styles.created}>Criadas <Text style={styles.counter}>0</Text></Text>
         <Text style={styles.done}>Concluídas <Text style={styles.counter}>0</Text></Text>
       </View>
-
       <View style={styles.divider} />
 
       <FlatList
@@ -82,8 +91,8 @@ export function Home() {
         renderItem={({ item }) => (
           <Task
             title={item.title}
-            done={false}
-            onToggleDone={() => { }}
+            done={item.done}
+            onToggleDone={() => handleToggleTaskDone(item.id)}
             onRemove={() => handleTaskRemove(item.id)}
           />
         )}
