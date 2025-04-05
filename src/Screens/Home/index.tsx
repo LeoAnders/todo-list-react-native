@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styles } from './styles'
 import React from 'react';
 import {
@@ -28,7 +28,22 @@ export function Home() {
     done: false,
   };
 
+  const [createdCount, setCreatedCount] = useState(0);
+  const [doneCount, setDoneCount] = useState(0);
+
+  useEffect(() => {
+    const created = tasks.length;
+    const done = tasks.filter(task => task.done).length;
+
+    setCreatedCount(created);
+    setDoneCount(done);
+  }, [tasks]);
+
   function handleAddTask() {
+    if (newTask.trim() === '') {
+      Alert.alert('Erro', 'Digite uma tarefa válida');
+      return;
+    }
 
     setTasks(prevState => [...prevState, newTaskObject])
     setNewTask('');
@@ -80,8 +95,8 @@ export function Home() {
       </View>
 
       <View style={styles.counterContainer}>
-        <Text style={styles.created}>Criadas <Text style={styles.counter}>0</Text></Text>
-        <Text style={styles.done}>Concluídas <Text style={styles.counter}>0</Text></Text>
+        <Text style={styles.created}>Criadas <Text style={styles.counter}>{createdCount}</Text></Text>
+        <Text style={styles.done}>Concluídas <Text style={styles.counter}>{doneCount}</Text></Text>
       </View>
       <View style={styles.divider} />
 
