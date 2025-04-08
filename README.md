@@ -2,6 +2,12 @@
 
 A simple to-do list app built with React Native. This project is part of the Ignite React Native track and helps reinforce core concepts like state management, componentization, and immutability.
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/da8c82ca-cf9d-4d68-90ab-82743d07caed" alt="Sobre" width="800">
+</div>
+
+
+
 ### Features
 - Add a new task
 - Mark and unmark tasks as completed
